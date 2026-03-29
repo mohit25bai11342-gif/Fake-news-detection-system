@@ -85,7 +85,7 @@ This system solves the problem using machine learning.
 
 ### Functional Requirements
 
-- Load dataset (`Fake.csv.zip  and True.csv.zip` )  
+- Load dataset (`Fake.csv and True.csv` )  
 - Clean and preprocess text  
 - Convert text using TF-IDF  
 - Train ML models  
@@ -144,7 +144,7 @@ flowchart TD
 
 A[Start] --> B[Import Libraries]
 
-B --> C[Load Dataset Fake.csv.zip  and True.csv.zip]
+B --> C[Load Dataset Fake.csv and True.csv]
 C -->|Error| D[Print Error & Exit]
 C -->|Success| E[Display Data Info]
 
@@ -212,7 +212,7 @@ pip --version
 ### 📥 2. Clone the Repository
 
 ```bash
-git clone https://github.com/mohit25bai11342-gif/fake-news-detection.git
+git clone https://github.com/mohit25bai11342-gif/fake-news-detection-system.git
 cd fake-news-detection
 ```
 
@@ -255,7 +255,7 @@ scikit-learn
 
 This project uses a **CSV dataset**.
 
-- Place your dataset file named **`Fake.csv.zip  and True.csv.zip`** in the project root directory.
+- Place your dataset file named **`Fake.csv  and True.csv`** in the project root directory.
 
 #### 📊 Required Columns:
 - `title` → News headline  
@@ -299,7 +299,7 @@ Type `exit` to stop the program.
 
 Before running the project, ensure the following configurations:
 
-- The dataset file **`Fake.csv.zip  and True.csv.zip`** is placed in the root directory.
+- The dataset file **`Fake.csv and True.csv`** is placed in the root directory.
 - The CSV file must contain the following columns:
   - `title` → News headline  
   - `text` → News content
@@ -309,8 +309,8 @@ Before running the project, ensure the following configurations:
 - You can modify the script if needed:
   - Change dataset path:
     ```python
-    data = pd.read_csv(" Fake.csv.zip ")
-     data = pd.read_csv("True.csv.zip")
+    data = pd.read_csv(" Fake.csv ")
+     data = pd.read_csv("True.csv")
     ```
   - Adjust model parameters:
     - Logistic Regression (`max_iter=1000`)
