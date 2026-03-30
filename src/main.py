@@ -1,6 +1,6 @@
-# ==============================
+
 # IMPORT LIBRARIES
-# ==============================
+
 import pandas as pd
 import numpy as np
 import re
@@ -18,9 +18,9 @@ from sklearn.utils import resample
 
 print("\nLoading data...\n")
 
-# ==============================
+
 # LOAD DATA
-# ==============================
+
 try:
     fake_data = pd.read_csv("Fake.csv")
     real_data = pd.read_csv("True.csv")
@@ -35,9 +35,9 @@ except:
     print("Error: Dataset files not found!")
     exit()
 
-# ==============================
-# BALANCE DATASET (VERY IMPORTANT)
-# ==============================
+
+# BALANCE DATASET 
+
 print("\nBalancing dataset...\n")
 
 fake = df[df.label == 0]
@@ -56,9 +56,9 @@ df = df.sample(frac=1).reset_index(drop=True)
 
 print("Label distribution after balancing:\n", df["label"].value_counts())
 
-# ==============================
+
 # CLEANING DATA
-# ==============================
+
 df.dropna(inplace=True)
 
 df["content"] = df["title"] + " " + df["text"]
@@ -75,9 +75,9 @@ def clean_text(text):
 print("\nCleaning text...\n")
 df["content"] = df["content"].apply(clean_text)
 
-# ==============================
+
 # SPLIT DATA
-# ==============================
+
 X = df["content"]
 y = df["label"]
 
@@ -85,9 +85,9 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# ==============================
+
 # TF-IDF (IMPROVED)
-# ==============================
+
 print("\nVectorizing text...\n")
 
 tfidf = TfidfVectorizer(
@@ -101,9 +101,9 @@ tfidf = TfidfVectorizer(
 X_train_vec = tfidf.fit_transform(X_train)
 X_test_vec = tfidf.transform(X_test)
 
-# ==============================
+
 # TRAIN MODELS
-# ==============================
+
 print("\nTraining models...\n")
 
 # Logistic Regression (balanced)
@@ -116,9 +116,9 @@ nb = MultinomialNB()
 nb.fit(X_train_vec, y_train)
 nb_pred = nb.predict(X_test_vec)
 
-# ==============================
+
 # RESULTS
-# ==============================
+
 print("\n--- Logistic Regression ---")
 print("Accuracy:", accuracy_score(y_test, lr_pred))
 print(confusion_matrix(y_test, lr_pred))
@@ -129,18 +129,18 @@ print("Accuracy:", accuracy_score(y_test, nb_pred))
 print(confusion_matrix(y_test, nb_pred))
 print(classification_report(y_test, nb_pred))
 
-# ==============================
+
 # SELECT BEST MODEL
-# ==============================
+
 lr_score = accuracy_score(y_test, lr_pred)
 nb_score = accuracy_score(y_test, nb_pred)
 
 model = lr if lr_score > nb_score else nb
 print("\nUsing:", "Logistic Regression" if model == lr else "Naive Bayes")
 
-# ==============================
+
 # PREDICTION FUNCTION
-# ==============================
+
 def predict_news(text):
     text = clean_text(text)
     vec = tfidf.transform([text])
@@ -153,15 +153,15 @@ def predict_news(text):
     else:
         return "REAL ✅" if pred == 1 else "FAKE ❌"
 
-# ==============================
+
 # SAMPLE TEST
-# ==============================
+
 print("\nSample test:")
 print("Result:", predict_news("India's economy shows steady growth"))
 
-# ==============================
+
 # USER INPUT
-# ==============================
+
 print("\nType your own news (type 'exit' to stop)\n")
 
 while True:
@@ -174,17 +174,17 @@ while True:
     print("Result:", predict_news(user_text))
     print("-" * 40)
 
-# ==============================
+
 # SAVE MODEL
-# ==============================
+
 pickle.dump(model, open("model.pkl", "wb"))
 pickle.dump(tfidf, open("vectorizer.pkl", "wb"))
 
 print("\nModel saved successfully!")
 
-# ==============================
+
 # VERIFY
-# ==============================
+
 loaded_model = pickle.load(open("model.pkl", "rb"))
 loaded_vec = pickle.load(open("vectorizer.pkl", "rb"))
 
@@ -193,6 +193,6 @@ vec = loaded_vec.transform([test_text])
 pred = loaded_model.predict(vec)
 
 print("\nLoaded model test:",
-      "REAL ✅" if pred[0] == 1 else "FAKE ❌")
+      "REAL " if pred[0] == 1 else "FAKE ")
 
-print("\nDone 👍")
+print("\nDone ")
