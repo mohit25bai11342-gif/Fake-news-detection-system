@@ -22,8 +22,8 @@ print("\nLoading data...\n")
 # LOAD DATA
 # ==============================
 try:
-    fake_data = pd.read_csv("Fake.csv.zip", compression="zip")
-    real_data = pd.read_csv("True.csv.zip", compression="zip")
+    fake_data = pd.read_csv("Fake.csv")
+    real_data = pd.read_csv("True.csv")
 
     fake_data["label"] = 0
     real_data["label"] = 1
