@@ -149,9 +149,9 @@ def predict_news(text):
 
     if hasattr(model, "predict_proba"):
         prob = model.predict_proba(vec).max()
-        return ("REAL ✅" if pred == 1 else "FAKE ❌") + f" ({prob:.2f})"
+        return ("REAL " if pred == 1 else "FAKE ") + f" ({prob:.2f})"
     else:
-        return "REAL ✅" if pred == 1 else "FAKE ❌"
+        return "REAL " if pred == 1 else "FAKE "
 
 
 # SAMPLE TEST
