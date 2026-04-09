@@ -85,7 +85,7 @@ This system solves the problem using machine learning.
 
 ### Functional Requirements
 
-- Load dataset (`Fake.csv and True.csv` )  
+- Load dataset (`news.csv` )  
 - Clean and preprocess text  
 - Convert text using TF-IDF  
 - Train ML models  
@@ -144,7 +144,7 @@ flowchart TD
 
 A[Start] --> B[Import Libraries]
 
-B --> C[Load Dataset Fake.csv and True.csv]
+B --> C[Load Dataset news.csv]
 C -->|Error| D[Print Error & Exit]
 C -->|Success| E[Display Data Info]
 
